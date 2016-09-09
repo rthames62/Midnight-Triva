@@ -1,0 +1,85 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #212121;
+  font-family: 'Lato', sans-serif;
+  color: #F5F5F5;
+  text-align: center;
+}
+
+header {
+  border-bottom:2px solid #141414;
+  margin-bottom: 25px;
+  background-color: #141414;
+  padding: 10px 0;
+}
+
+h1, h2, h3, h4 {
+  text-align: center;
+  font-weight: 300;
+  color:#7FDDFF;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+main.main-wrapper {
+  width: 100%;
+}
+
+div.trivia-wrapper {
+  width: 80%;
+  min-height: 400px;
+  margin: 0 auto;
+  border: 2px solid #141414;
+  border-radius: 3px;
+}
+
+div.trivia-header {
+  background-color: #141414;
+}
+
+div.trivia-header h3 {
+  padding: 10px 0;
+  margin: 0;
+}
+
+div.trivia-body {
+  padding: 10px;
+}
+
+img.movie-poster {
+  width: 120px;
+}
+
+img.movie-backdrop {
+  width: 100%;
+}
+
+button.answer {
+  width: 200px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: #C2E78C;
+  margin-bottom: 10px;
+  margin-right: 5px;
+  min-height: 50px;
+  vertical-align: top;
+  cursor: pointer;
+}
+
+button.answer:hover {
+  opacity: .9;
+}
+
+button:active {
+  outline: none;
+  border: none;
+}
