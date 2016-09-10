@@ -1,1 +1,1 @@
-angular.module('triviaApp', []);
+var triviaApp = angular.module('triviaApp', ['ngRoute']);

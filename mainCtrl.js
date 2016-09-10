@@ -1,12 +1,16 @@
-angular.module('triviaApp').controller('mainCtrl', function($scope, triviaService){
+triviaApp.controller('mainCtrl', function($scope, triviaService){
 
   $scope.popularMovies = [];
   $scope.moviesArr = [];
   $scope.imgUrl = "http://image.tmdb.org/t/p/w500/";
 
-  triviaService.discoverPopularMovies().then(function(movies){
-    $scope.popularMovies = movies;
-  })
+  $scope.correctAnswer = function(answer, correctAnswer) {
+    return triviaService.getCorrectAnswer(answer, correctAnswer);
+  }
+
+  // triviaService.discoverPopularMovies().then(function(movies){
+  //   $scope.popularMovies = movies;
+  // })
 
   triviaService.generateMovieObj().then(function(movies){
     var randomQuestion = generateRandomQuestion(movies.length);

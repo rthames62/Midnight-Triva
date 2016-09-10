@@ -17,21 +17,8 @@
         <div class="trivia-header">
           <h3>Best of luck!</h3>
         </div>
-        <div class="trivia-body">
-          <ul>
-            <li>
-              <p>
-                What is the name of this popular movie?
-              </p>
-              <p>
-                <img class="movie-backdrop" ng-src="{{movieQuestion.image}}" alt="" />
-              </p>
-              <button class="answer" type="button" name="button">{{movieQuestion.falseAnswer2}}</button>
-              <button class="answer" type="button" name="button">{{movieQuestion.correctAnswer}}</button>
-              <button class="answer" type="button" name="button">{{movieQuestion.falseAnswer3}}</button>
-              <button class="answer" type="button" name="button">{{movieQuestion.falseAnswer1}}</button>
-            </li>
-          </ul>
+        <div class="trivia-body" ng-view>
+
         </div>
       </div>
     </main>
@@ -39,7 +26,9 @@
 
     <!-- Scripts -->
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js" charset="utf-8"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular-route.js"></script>
     <script src="app.js" charset="utf-8"></script>
+    <script src="config.js" charset="utf-8"></script>
     <script src="mainCtrl.js" charset="utf-8"></script>
     <script src="triviaService.js" charset="utf-8"></script>
 
