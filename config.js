@@ -1,6 +1,5 @@
 triviaApp.config(function($routeProvider){
   $routeProvider.when('/', {
-      templateUrl : 'question.html',
-      controller : 'mainCtrl'
+      templateUrl : 'question.html'
   })
 })

@@ -43,15 +43,16 @@ div.trivia-wrapper {
 
 div.trivia-header {
   background-color: #141414;
+  overflow: hidden;
+  padding: 10px 0;
 }
 
 div.trivia-header h3 {
-  padding: 10px 0;
   margin: 0;
 }
 
 div.trivia-body {
-  padding: 10px;
+  padding: 0 10px 10px 10px;
 }
 
 img.movie-poster {
@@ -82,4 +83,14 @@ button.answer:hover {
 button:active {
   outline: none;
   border: none;
+}
+
+span.streak {
+  float: left;
+  padding-left: 20px;
+}
+
+span.lives {
+  float: right;
+  padding-right: 20px;
 }

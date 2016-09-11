@@ -8,34 +8,20 @@ triviaApp.service('triviaService', function($http){
   this.popularMovies = [];
   this.moviesArr = [];
   this.questionsArr = [];
+  this.streak = 0;
+  this.lives = 3;
   var popularMovies = [];
   var moviesArr = [];
   var questionsArr = [];
   var randomPage = generateRandomPage();
-
-  // this.discoverPopularMovies = function(){
-  //   return $http.get(baseUrl + 'discover/movie?original_language=en&sort_by=popularity.desc' + apiKey + '&page=' + randomPage).then(function(response){
-  //     // return response.data.results;
-  //     var movies = response.data.results;
-  //     // console.log(movies);
-  //     movies.forEach(function(movie){
-  //       popularMovies.push(movie);
-  //       moviesArr.push({
-  //         title : movie.original_title,
-  //         movieImg : "http://image.tmdb.org/t/p/w500" + movie.backdrop_path
-  //       })
-  //     })
-  //     this.popularMovies = popularMovies;
-  //     this.moviesArr = moviesArr;
-  //     return this.popularMovies;
-  //   })
-  // }
+  var random1 = 0;
+  var random2 = 0;
+  var random3 = 0;
+  var randomsArr = [];
 
   this.generateMovieObj = function(){
     return $http.get(baseUrl + 'discover/movie?sort_by=popularity.desc' + apiKey).then(function(response){
-      // return response.data.results;
       var movies = response.data.results;
-      // console.log(movies);
       movies.forEach(function(movie){
         moviesArr.push({
           title : movie.original_title,
@@ -66,39 +52,43 @@ triviaApp.service('triviaService', function($http){
     return arr
   }
 
-  function indexCheck(x, y, z, a, callback){
-    // console.log(x, y , z, a);
-    if(x === y || x === z || x === a) {
-      // console.log('reroll', x, y , z, a);
-      return callback;
-    } else {
-      // console.log('good', x, y , z, a);
-      return x;
+  function indexCheck(len, index){
+    randomsArr = [];
+    random1 = randomIndex(len);
+    random2 = randomIndex(len);
+    random3 = randomIndex(len);
+    // console.log(random1, random2, random3, index);
+    if(random1 === random2 || random1 === random3 || random2 === random3 || random1 === index || random2 === index || random3 === index) {
+      return indexCheck(len, index);
+    } else if (isNaN(random1) === false || isNaN(random2) === false || isNaN(random3) === false) {
+        randomsArr.push(random1);
+        randomsArr.push(random2);
+        randomsArr.push(random3);
+        return randomsArr;
     }
   }
 
   var generateImageQuestions = function(arr){
     for(var i = 0; i < arr.length; i++){
-      var random1 = randomIndex(arr.length - 1);
-      // console.log('random1 = ', random1);
-      var random2 = randomIndex(arr.length - 1);
-      // console.log('random2 = ', random2);
-      var random3 = randomIndex(arr.length - 1);
-      // console.log('random3 = ', random3);
-      var false1 = indexCheck(random1, i, random2, random3, randomIndex(arr.length - 1));
-      var false2 = indexCheck(random2, i, random1, random3, randomIndex(arr.length - 1));
-      var false3 = indexCheck(random3, i, random1, random2, randomIndex(arr.length - 1));
+      // var random1 = randomIndex(arr.length - 1);
+      // var random2 = randomIndex(arr.length - 1);
+      // var random3 = randomIndex(arr.length - 1);
+      var allFalsesArr = indexCheck(arr.length - 1, i);
+      // console.log(allFalsesArr);
+      var false1 = allFalsesArr[0];
+      var false2 = allFalsesArr[1];
+      var false3 = allFalsesArr[2];
       var answersArr = [arr[i]["title"], arr[false1]["title"], arr[false2]["title"], arr[false3]["title"]];
       // console.log(random1, random2, random3);
 
-    //   var testing = function() {
-    //     if(false1 === false2 || false1 === false3 || false2 === false3) {
-    //       return 'UH OH!!!';
-    //     } else {
-    //       return "we are good";
-    //     }
-    // }
-    // console.log(false1, false2, false3, testing());
+      var testing = function() {
+        if(false1 === false2 || false1 === false3 || false2 === false3) {
+          return 'UH OH!!!';
+        } else {
+          return "we are good";
+        }
+    }
+    console.log(false1, false2, false3, testing());
 
       // console.log(false1, false2, false3, testing());
       // console.log(arr[false3]["title"]);
@@ -119,10 +109,11 @@ triviaApp.service('triviaService', function($http){
 
   this.getCorrectAnswer = function(answer, correctAnswer){
     if(answer === correctAnswer) {
-      // return location.reload();
-      return go('/');
+      this.streak += 1;
+      console.log(this.streak);
+      return true;
     } else {
-      console.log('incorrect')
+      return false;
     }
   }
 

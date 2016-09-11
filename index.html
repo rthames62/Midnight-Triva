@@ -2,23 +2,25 @@
 <html ng-app="triviaApp">
   <head>
     <meta charset="utf-8">
-    <title>Midnight Trivia</title>
+    <title>Moive Trivia</title>
     <link rel="stylesheet" href="main.css" media="screen" title="no title" charset="utf-8">
     <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
   </head>
   <body>
 
     <header>
-      <h2>Midnight Trivia</h2>
+      <h2>Movie Trivia</h2>
     </header>
 
     <main class="main-wrapper" ng-controller="mainCtrl">
       <div class="trivia-wrapper">
         <div class="trivia-header">
-          <h3>Best of luck!</h3>
+          <h3><span class="streak">Streak: {{streak}}</span><span class="lives">Lives: {{lives}}</span></h3>
         </div>
-        <div class="trivia-body" ng-view>
+        <div class="trivia-body">
+          <div ng-view>
 
+          </div>
         </div>
       </div>
     </main>
@@ -30,6 +32,7 @@
     <script src="app.js" charset="utf-8"></script>
     <script src="config.js" charset="utf-8"></script>
     <script src="mainCtrl.js" charset="utf-8"></script>
+    <script src="questionCtrl.js" charset="utf-8"></script>
     <script src="triviaService.js" charset="utf-8"></script>
 
   </body>
