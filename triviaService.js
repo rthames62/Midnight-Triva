@@ -34,6 +34,21 @@ triviaApp.service('triviaService', function($http){
     })
   }
 
+  this.generateNextMovieObj = function(){
+    return $http.get(baseUrl + 'discover/movie?sort_by=popularity.desc' + apiKey).then(function(response){
+      var movies = response.data.results;
+      movies.forEach(function(movie){
+        moviesArr.push({
+          title : movie.original_title,
+          movieImg : "http://image.tmdb.org/t/p/w500" + movie.backdrop_path
+        })
+      })
+      this.moviesArr = generateImageQuestions(moviesArr);
+
+      return this.moviesArr;
+    })
+  }
+
   function randomIndex(num){
     return Math.round(Math.random() * (num - 0) + 0);
   };
@@ -81,14 +96,14 @@ triviaApp.service('triviaService', function($http){
       var answersArr = [arr[i]["title"], arr[false1]["title"], arr[false2]["title"], arr[false3]["title"]];
       // console.log(random1, random2, random3);
 
-      var testing = function() {
-        if(false1 === false2 || false1 === false3 || false2 === false3) {
-          return 'UH OH!!!';
-        } else {
-          return "we are good";
-        }
-    }
-    console.log(false1, false2, false3, testing());
+    //   var testing = function() {
+    //     if(false1 === false2 || false1 === false3 || false2 === false3) {
+    //       return 'UH OH!!!';
+    //     } else {
+    //       return "we are good";
+    //     }
+    // }
+    // console.log(false1, false2, false3, testing());
 
       // console.log(false1, false2, false3, testing());
       // console.log(arr[false3]["title"]);

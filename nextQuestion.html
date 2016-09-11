@@ -1,0 +1,14 @@
+<!-- Next Question -->
+<div>
+  {{test}}
+  <p>
+    What is the name of this popular movie?
+  </p>
+  <p>
+    <img class="movie-backdrop" ng-src="{{nextMovieQuestion.image}}" alt="" />
+  </p>
+  <button class="answer" type="button" name="button" ng-click="correctAnswer(nextMovieQuestion.answer1, nextMovieQuestion.correctAnswer)">{{nextMovieQuestion.answer1}}</button>
+  <button class="answer" type="button" name="button" ng-click="correctAnswer(nextMovieQuestion.answer2, nextMovieQuestion.correctAnswer)">{{nextMovieQuestion.answer2}}</button>
+  <button class="answer" type="button" name="button" ng-click="correctAnswer(nextMovieQuestion.answer3, nextMovieQuestion.correctAnswer)">{{nextMovieQuestion.answer3}}</button>
+  <button class="answer" type="button" name="button" ng-click="correctAnswer(nextMovieQuestion.answer4, nextMovieQuestion.correctAnswer)">{{nextMovieQuestion.answer4}}</button>
+</div>
