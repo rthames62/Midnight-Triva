@@ -20,7 +20,7 @@ triviaApp.service('triviaService', function($http){
   var randomsArr = [];
 
   this.generateMovieObj = function(){
-    return $http.get(baseUrl + 'discover/movie?sort_by=popularity.desc' + apiKey).then(function(response){
+    return $http.get(baseUrl + 'discover/movie?sort_by=popularity.desc' + apiKey + '&page=' + randomPage + '&original_language=en').then(function(response){
       var movies = response.data.results;
       movies.forEach(function(movie){
         moviesArr.push({
@@ -35,7 +35,10 @@ triviaApp.service('triviaService', function($http){
   }
 
   this.generateNextMovieObj = function(){
-    return $http.get(baseUrl + 'discover/movie?sort_by=popularity.desc' + apiKey).then(function(response){
+    this.moviesArr = [];
+    moviesArr = [];
+    randomPage = generateRandomPage();
+    return $http.get(baseUrl + 'discover/movie?sort_by=popularity.desc' + apiKey + '&page=' + randomPage + '&original_language=en').then(function(response){
       var movies = response.data.results;
       movies.forEach(function(movie){
         moviesArr.push({
@@ -43,8 +46,9 @@ triviaApp.service('triviaService', function($http){
           movieImg : "http://image.tmdb.org/t/p/w500" + movie.backdrop_path
         })
       })
+      this.moviesArr = [];
       this.moviesArr = generateImageQuestions(moviesArr);
-
+      // console.log('moviesArr', this.moviesArr.length);
       return this.moviesArr;
     })
   }
@@ -54,7 +58,7 @@ triviaApp.service('triviaService', function($http){
   };
 
   function generateRandomPage(){
-    return Math.round(Math.random() * (1000 - 1) + 1);
+    return Math.round(Math.random() * (25 - 1) + 1);
   }
 
   function shuffleAnswers(arr){
@@ -84,6 +88,9 @@ triviaApp.service('triviaService', function($http){
   }
 
   var generateImageQuestions = function(arr){
+    // console.log('before reset qA', questionsArr);
+    questionsArr = [];
+    // console.log('after reset qA', questionsArr);
     for(var i = 0; i < arr.length; i++){
       // var random1 = randomIndex(arr.length - 1);
       // var random2 = randomIndex(arr.length - 1);
@@ -94,6 +101,7 @@ triviaApp.service('triviaService', function($http){
       var false2 = allFalsesArr[1];
       var false3 = allFalsesArr[2];
       var answersArr = [arr[i]["title"], arr[false1]["title"], arr[false2]["title"], arr[false3]["title"]];
+      // console.log(arr[i]["title"]);
       // console.log(random1, random2, random3);
 
     //   var testing = function() {
@@ -119,15 +127,17 @@ triviaApp.service('triviaService', function($http){
         answer4 : shuffledArr[3]
       })
     }
+    // console.log('questionsArr', questionsArr.length);
     return questionsArr;
   }
 
   this.getCorrectAnswer = function(answer, correctAnswer){
     if(answer === correctAnswer) {
       this.streak += 1;
-      console.log(this.streak);
+      // console.log(this.streak);
       return true;
     } else {
+      alert('Incorrect');
       return false;
     }
   }

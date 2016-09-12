@@ -14,9 +14,11 @@ triviaApp.controller('mainCtrl', function($scope, triviaService){
     $scope.updateLives($scope.inputAnswer);
 
     triviaService.generateNextMovieObj().then(function(movies){
+      // $scope.moviesNextArr = [];
       var randomQuestion = generateRandomQuestion(movies.length);
       $scope.moviesNextArr = movies;
       $scope.nextMovieQuestion = $scope.moviesNextArr[randomQuestion];
+      // console.log($scope.moviesNextArr);
     })
   }
 
@@ -35,8 +37,15 @@ triviaApp.controller('mainCtrl', function($scope, triviaService){
           $scope.streak += 1;
           return location.href = '#/nextquestion';
         } else {
-          console.log('incorrect');
-          return $scope.lives -= 1;
+          if($scope.lives > 1) {
+            $scope.lives -= 1;
+            return location.href = '#/nextquestion';
+          } else {
+            $scope.lives = 3;
+            $scope.streak = 0;
+            alert('you suck, try again');
+            return location.href = '#/';
+          }
         }
   }
 
